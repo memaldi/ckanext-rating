@@ -1,0 +1,9 @@
+{% ckan_extends %}
+
+{% block heading_title %}
+{{super()}}
+<span class="rateit" data-rateit-min="0" data-rateit-resetable="false" data-rateit-value="2.5">
+</span>
+{% resource 'rating/rating/rateit.css' %}
+{% resource 'rating/rating/jquery.rateit.js' %}
+{% endblock %}
