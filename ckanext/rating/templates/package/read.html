@@ -1,0 +1,12 @@
+{% ckan_extends %}
+
+{% block page_heading %}
+  {{ super() }}
+  <span class="rateit" data-rateit-step="1" data-rateit-min="0" data-rateit-resetable="false" data-rateit-value="{{pkg.get('ratings', 0)}}" id="rating-widget">
+  </span>
+  <input type="hidden" value="{{pkg['id']}}" id="package-id">
+  {% resource 'rating/rating/rateit.css' %}
+  {% resource 'rating/rating/jquery.rateit.js' %}
+  {% resource 'rating/rating.js' %}
+
+{% endblock %}
