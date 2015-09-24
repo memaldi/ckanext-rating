@@ -2,9 +2,8 @@
 
 {% block heading_title %}
 {{super()}}
-<span class="rateit" data-rateit-step="1" data-rateit-min="0" data-rateit-resetable="false" data-rateit-value="{{package.get('ratings', 0)}}" id="rating-widget">
+<span class="rateit" data-rateit-step="1" data-rateit-min="0" data-rateit-resetable="false" data-rateit-value="{{package.get('ratings', 0)}}" id="rating-widget-{{package['id']}}">
 </span>
-<input type="hidden" value="{{package['id']}}" id="package-id">
 {% resource 'rating/rating/rateit.css' %}
 {% resource 'rating/rating/jquery.rateit.js' %}
 {% resource 'rating/rating.js' %}
