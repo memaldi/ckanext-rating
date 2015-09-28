@@ -1,14 +1,24 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.model.package import Package
+from ckan.logic.action import get
 import logging
 
 log = logging.getLogger(__name__)
 
 
+@toolkit.side_effect_free
+def package_show(context, data_dict):
+    package_dict = get.package_show(context, data_dict)
+    package = Package.get(package_dict['id'])
+    package_dict['rating'] = package.get_average_rating()
+    return package_dict
+
+
 class RatingPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IPackageController, inherit=True)
+    plugins.implements(plugins.IActions)
 
     # IConfigurer
 
@@ -24,3 +34,8 @@ class RatingPlugin(plugins.SingletonPlugin):
             package = Package.get(pkg_dict['id'])
             pkg_dict['ratings'] = package.get_average_rating()
         return pkg_dict
+
+    # IActions
+
+    def get_actions(self):
+        return {'package_show': package_show}
